@@ -1,5 +1,6 @@
 package tests;
 
+import models.User;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,8 +15,9 @@ public void preCondition(){
 }
     @Test
     public void loginPositiveTest(){
+        User data = new User().withEmail("asd@fgh.com").withPassword("$Asdf1234");
         app.getUser().openLoginForm();
-        app.getUser().fillLoginForm("asd@fgh.com", "$Asdf1234");
+        app.getUser().fillLoginForm(data);
         app.getUser().submitForm();
         Assert.assertTrue(app.getUser().isLoggedSuccess());
 
@@ -24,9 +26,11 @@ public void preCondition(){
 
     @Test
     public void loginNegativeTestWrongEmail(){
+        User data = new User().withEmail("asdfgh.com").withPassword("$Asdf1234");
         app.getUser().openLoginForm();
-        app.getUser().fillLoginForm("asdfgh.com", "$Asdf1234");
+       // app.getUser().fillLoginForm("asdfgh.com", "$Asdf1234");
       //  app.getUser().submitLogin();
+        app.getUser().fillLoginForm(data);
         app.getUser().pause(5000);
         Assert.assertTrue(app.getUser().isLoggedFailed());
 

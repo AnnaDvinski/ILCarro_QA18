@@ -1,6 +1,7 @@
 package models;
 
 public class User {
+    public User() {}
 
     private String name;
     private String lastName;
@@ -55,6 +56,6 @@ public class User {
         this.password = password;
         return this;
     }
-//User user = new User().withName().withLastName().withEmail().withPassword();
+       //User user = new User().withName().withLastName().withEmail().withPassword();
 
 }

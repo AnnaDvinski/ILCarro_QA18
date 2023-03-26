@@ -1,5 +1,6 @@
 package tests;
 
+import models.User;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -7,24 +8,32 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class RegistrationTests extends TestBase{
-    @BeforeMethod
-    public void preCondition(){
-        if(app.getUser().isLogged()){
-            app.getUser().logout();
-        }
-    }
+    //@BeforeMethod
 @Test
     public void registrationPositiveTest(){
+
+   int i = (int) (System.currentTimeMillis() / 1000) % 3600;
+    User user = new User()
+            .withName("Joe")
+            .withLastName("Doe")
+            .withEmail("Joe" + i + "@email.com")
+            .withPassword("$Asdf1234" + i);
     app.getUser().openRegistrationForm();
-    int i = (int) (System.currentTimeMillis() / 1000) % 3600;
-    String name = "Anna";
-    String lastName = "Nnnnnnn";
-    String email = "name" + i + "@mail.com";
-    String password = "$Asdf1234";
-    app.getUser().fillRegistrationForm(name, lastName, email, password);
+    app.getUser().fillRegistrationForm(user);
     app.getUser().clickCheckbox();
     app.getUser().submitForm();
-    Assert.assertTrue(app.getUser().isRegistrationSuccess());
+    Assert.assertTrue(app.getUser().isLoggedSuccess());
+
+//    String name = "Anna";
+//    String lastName = "Nnnnnnn";
+//    String email = "name" + i + "@mail.com";
+//    String password = "$Asdf1234";
+//    app.getUser().fillRegistrationForm(name, lastName, email, password);
+//    app.getUser().clickCheckbox();
+//    app.getUser().submitForm();
+//    Assert.assertTrue(app.getUser().isRegistrationSuccess());
+//
+//
 
 }
     @Test
